@@ -40,6 +40,10 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           cd lambda/metadata_extractor
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 413893068600.dkr.ecr.us-east-1.amazonaws.com
+          docker build -t metadata-extractor .
+          docker tag metadata-extractor:latest 413893068600.dkr.ecr.us-east-1.amazonaws.com/metadata-extractor:latest
+          docker push 413893068600.dkr.ecr.us-east-1.amazonaws.com/metadata-extractor:latest
           ######
           #
           #  TODO: implement build and push to ECR
@@ -112,6 +116,10 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           cd lambda/image_validator
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 413893068600.dkr.ecr.us-east-1.amazonaws.com
+          docker build -t image-validator .
+          docker tag image-validator:latest 413893068600.dkr.ecr.us-east-1.amazonaws.com/image-validator:latest
+          docker push 413893068600.dkr.ecr.us-east-1.amazonaws.com/image-validator:latest
           ######
           #
           #  TODO: implement build and push to ECR
